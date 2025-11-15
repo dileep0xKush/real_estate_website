@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Checking lint issues before push..."
+
+npm run lint:check
+if [ $? -ne 0 ]; then
+  echo "❌ Lint issues detected! Please fix them before pushing."
+  exit 1
+fi
