@@ -141,13 +141,19 @@ export default function Header() {
                   Property <i className="fa fa-angle-down"></i>
                 </a>
                 <div className="dropdown-menu">
-                  <Link className="dropdown-item" href="/property">
+                  <Link
+                    className="dropdown-item"
+                    href="/property/default-variation"
+                  >
                     Default Variation
                   </Link>
-                  <Link className="dropdown-item" href="#">
+                  <Link
+                    className="dropdown-item"
+                    href="/property/single-property"
+                  >
                     Single Property
                   </Link>
-                  <Link className="dropdown-item" href="#">
+                  <Link className="dropdown-item" href="/property/full-gallery">
                     Full Gallery
                   </Link>
                 </div>
@@ -158,21 +164,30 @@ export default function Header() {
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
-                  data-toggle="dropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
                   Gallery <i className="fa fa-angle-down"></i>
                 </a>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" href="#">
-                    2 Columns
-                  </Link>
-                  <Link className="dropdown-item" href="#">
-                    3 Columns
-                  </Link>
-                  <Link className="dropdown-item" href="#">
-                    4 Columns
-                  </Link>
-                </div>
+
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link href="/gallery/2-columns" className="dropdown-item">
+                      2 Columns
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gallery/3-columns" className="dropdown-item">
+                      3 Columns
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gallery/4-columns" className="dropdown-item">
+                      4 Columns
+                    </Link>
+                  </li>
+                </ul>
               </li>
 
               {/* Pages */}
@@ -185,30 +200,38 @@ export default function Header() {
                   Pages <i className="fa fa-angle-down"></i>
                 </a>
                 <div className="dropdown-menu">
-                  <Link className="dropdown-item" href="/about">
+                  <Link className="dropdown-item" href="/about-us">
                     About Us
                   </Link>
+
                   <Link className="dropdown-item" href="/agents">
                     Agents
                   </Link>
-                  <Link className="dropdown-item" href="/rent">
+
+                  <Link className="dropdown-item" href="/for-rent">
                     For Rent
                   </Link>
-                  <Link className="dropdown-item" href="/sale">
+
+                  <Link className="dropdown-item" href="/for-sale">
                     For Sale
                   </Link>
-                  <Link className="dropdown-item" href="/pricing">
-                    Pricing
+
+                  <Link className="dropdown-item" href="/pricing-tables">
+                    Pricing Tables
                   </Link>
+
                   <Link className="dropdown-item" href="/dashboard">
                     Dashboard
                   </Link>
-                  <Link className="dropdown-item" href="/submit-property">
-                    Submit Property
+
+                  <Link className="dropdown-item" href="/submission-form">
+                    Submission Form
                   </Link>
+
                   <Link className="dropdown-item" href="/faq">
                     FAQ
                   </Link>
+
                   <Link className="dropdown-item" href="/testimonials">
                     Testimonials
                   </Link>
@@ -236,7 +259,7 @@ export default function Header() {
 
               {/* Contact */}
               <li className="nav-item">
-                <Link className="nav-link" href="/contact">
+                <Link className="nav-link" href="/contact-us">
                   Contact Us
                 </Link>
               </li>
