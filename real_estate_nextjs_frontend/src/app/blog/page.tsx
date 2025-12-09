@@ -222,7 +222,7 @@ export default function BlogPage() {
                         <div className="widget-text">
                           <h5>
                             <Link href="/blog/11">
-                              Bedroom Colors You'll Never Regret
+                              Bedroom Colors You will Never Regret
                             </Link>
                           </h5>
 

@@ -157,8 +157,7 @@ export default function PropertyDetailsPage() {
                     <span>Remodeled, Skylight(s), Tile Walls</span>
                   </li>
                   <li>
-                    <strong>PLUMBING:</strong>{" "}
-                    <span>Full Copper Plumbing</span>
+                    <strong>PLUMBING:</strong> <span>Full Copper Plumbing</span>
                   </li>
                 </ul>
               </div>
@@ -248,8 +247,8 @@ export default function PropertyDetailsPage() {
                   />
 
                   <p>
-                    I'm interested in this property [ID 123456] and I'd like to
-                    know more details.
+                    I am interested in this property [ID 123456] and I would
+                    like to know more details.
                   </p>
 
                   <button className="btn btn-common fullwidth mt-4">
