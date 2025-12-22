@@ -4,6 +4,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import fastifyCookie from '@fastify/cookie';
 import { setupSwagger } from './config/swagger.config';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 
@@ -14,7 +15,13 @@ async function bootstrap() {
       new FastifyAdapter(),
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    await app.register(fastifyCookie, {
+      secret: process.env.COOKIE_SECRET,
+    });
+
     app.enableCors();
+
     app.useGlobalInterceptors(new ResponseInterceptor());
     setupSwagger(app);
 

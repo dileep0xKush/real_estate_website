@@ -11,12 +11,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly prisma: PrismaService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: FastifyRequest) => {
-          const header = req.headers.authorization;
-          if (!header) return null;
-
-          // Expected: "Bearer <token>"
-          return header.startsWith('Bearer ') ? header.substring(7) : header;
+        (req: FastifyRequest): string | null => {
+          return (
+            (req.cookies as Record<string, string> | undefined)?.access_token ??
+            null
+          );
         },
       ]),
       ignoreExpiration: false,
@@ -27,9 +26,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: JWTPayload): Promise<AuthenticatedUser> {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
+      select: {
+        id: true,
+        email: true,
+      },
     });
 
-    if (!user) throw new UnauthorizedException('Invalid token');
+    if (!user) {
+      throw new UnauthorizedException('Invalid token');
+    }
 
     return {
       userId: user.id,

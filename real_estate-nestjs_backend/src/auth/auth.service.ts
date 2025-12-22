@@ -70,9 +70,6 @@ export class AuthService {
     return bcrypt.compare(raw, stored);
   }
 
-  // ---------------------------------------------------
-  // REGISTER
-  // ---------------------------------------------------
   async register(data: RegisterDto): Promise<ResponseWithIdAndMessage> {
     try {
       const existing = await this.prisma.user.findFirst({
@@ -117,9 +114,6 @@ export class AuthService {
     }
   }
 
-  // ---------------------------------------------------
-  // LOGIN
-  // ---------------------------------------------------
   async login(data: LoginDto) {
     try {
       const user = await this.prisma.user.findUnique({
@@ -161,9 +155,6 @@ export class AuthService {
     }
   }
 
-  // ---------------------------------------------------
-  // FORGOT PASSWORD
-  // ---------------------------------------------------
   async forgotPassword(data: ForgotPasswordDto) {
     try {
       const user = await this.prisma.user.findUnique({
@@ -200,9 +191,6 @@ export class AuthService {
     }
   }
 
-  // ---------------------------------------------------
-  // RESET PASSWORD
-  // ---------------------------------------------------
   async resetPassword(data: ResetPasswordDto) {
     try {
       const tokenRecord = await this.prisma.passwordResetToken.findUnique({
@@ -240,9 +228,6 @@ export class AuthService {
     }
   }
 
-  // ---------------------------------------------------
-  // UPDATE PASSWORD
-  // ---------------------------------------------------
   async updatePassword(userId: number, data: UpdatePasswordDto) {
     try {
       const user = await this.prisma.user.findUnique({
@@ -278,9 +263,6 @@ export class AuthService {
     }
   }
 
-  // ---------------------------------------------------
-  // REFRESH TOKEN
-  // ---------------------------------------------------
   async refresh(data: RefreshTokenDto) {
     try {
       const payload = await this.jwtService.verifyAsync<JWTPayload>(
@@ -322,5 +304,18 @@ export class AuthService {
     } catch (error) {
       this.handleFailure('Token refresh failed', error);
     }
+  }
+
+  async logout(userId: number): Promise<{ message: string }> {
+    console.log(userId, 'userId');
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { refreshToken: null },
+    });
+
+    this.logger.log(`User logged out: ${userId}`);
+
+    return { message: 'Logout successful' };
   }
 }
