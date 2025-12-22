@@ -5,6 +5,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { setupSwagger } from './config/swagger.config';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 
 async function bootstrap() {
   try {
@@ -12,14 +13,16 @@ async function bootstrap() {
       AppModule,
       new FastifyAdapter(),
     );
+
     app.enableCors();
+    app.useGlobalInterceptors(new ResponseInterceptor());
     setupSwagger(app);
 
     const port = process.env.PORT ?? 5000;
     await app.listen(port, '0.0.0.0');
 
-    console.log(`🚀 Application is running on: http://localhost:${port}`);
-    console.log(`📄 Swagger docs available at: http://localhost:${port}/docs`);
+    console.log(`Application is running on: http://localhost:${port}`);
+    console.log(`Swagger docs available at: http://localhost:${port}/docs`);
   } catch (err) {
     console.error('Bootstrap failed', err);
     process.exit(1);

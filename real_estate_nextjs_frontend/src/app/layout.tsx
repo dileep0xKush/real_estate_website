@@ -1,6 +1,8 @@
 import Script from "next/script";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "../../public/assets/fonts/line-icons.css";
 import "../../public/assets/css/bootstrap.min.css";
@@ -19,17 +21,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head></head>
-
       <body suppressHydrationWarning={true}>
         <Header />
         {children}
         <Footer />
 
+        {/* Toastify Container */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="colored"
+        />
+
+        {/* Scripts */}
         <Script src="/assets/js/jquery-min.js" strategy="beforeInteractive" />
         <Script src="/assets/js/popper.min.js" strategy="beforeInteractive" />
 
         <Script src="/assets/js/bootstrap.min.js" strategy="afterInteractive" />
-
         <Script
           src="/assets/js/jquery.mixitup.js"
           strategy="afterInteractive"
@@ -57,16 +70,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           strategy="afterInteractive"
         />
         <Script src="/assets/js/nivo-lightbox.js" strategy="afterInteractive" />
-        <Script
-          src="/assets/js/form-validator.min.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="/assets/js/contact-form-script.min.js"
-          strategy="afterInteractive"
-        />
 
-        {/* Main JS LAST so everything above is loaded first */}
+        {/* Main JS LAST */}
         <Script src="/assets/js/main.js" strategy="afterInteractive" />
       </body>
     </html>

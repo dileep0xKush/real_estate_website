@@ -8,14 +8,14 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-
+import { ResponseWithIdAndMessage } from '../common/interfaces/response.interface';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly auth: AuthService) {}
 
   @Post('register')
-  register(@Body() dto: RegisterDto) {
+  register(@Body() dto: RegisterDto): Promise<ResponseWithIdAndMessage> {
     return this.auth.register(dto);
   }
 

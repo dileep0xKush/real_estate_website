@@ -23,6 +23,7 @@ export function setupSwagger(app: INestApplication) {
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
+      displayRequestDuration: true,
     },
   });
 }

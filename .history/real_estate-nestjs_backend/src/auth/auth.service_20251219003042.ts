@@ -16,7 +16,7 @@ import { UpdatePasswordDto } from './dto/update-password.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { randomBytes } from 'crypto';
 import type { JWTPayload } from './interfaces/jwt-payload.interface';
-import { ResponseWithIdAndMessage } from '../common/interfaces/response.interface';
+
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -73,7 +73,7 @@ export class AuthService {
   // ---------------------------------------------------
   // REGISTER
   // ---------------------------------------------------
-  async register(data: RegisterDto): Promise<ResponseWithIdAndMessage> {
+  async register(data: RegisterDto) {
     try {
       const existing = await this.prisma.user.findFirst({
         where: {
@@ -106,12 +106,14 @@ export class AuthService {
         },
         select: {
           id: true,
+          email: true,
+          name: true,
         },
       });
 
-      this.logger.log(`New user registered: ${newUser.id}`);
+      this.logger.log(`New user registered: ${newUser.email}`);
 
-      return { id: newUser.id, message: 'New user registered' };
+      return { user: newUser };
     } catch (error) {
       this.handleFailure('Registration failed', error);
     }
