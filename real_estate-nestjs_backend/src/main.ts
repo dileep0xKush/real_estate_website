@@ -20,7 +20,10 @@ async function bootstrap() {
       secret: process.env.COOKIE_SECRET,
     });
 
-    app.enableCors();
+    app.enableCors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    });
 
     app.useGlobalInterceptors(new ResponseInterceptor());
     setupSwagger(app);

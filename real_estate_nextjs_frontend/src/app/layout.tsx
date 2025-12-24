@@ -1,7 +1,8 @@
 // src/app/layout.tsx
 import type { ReactNode } from "react";
 import "./globals.css";
-import Providers from "./providers";
+import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/context/AuthProvider";
 
 export const metadata = {
   title: "Real Estate App",
@@ -12,10 +13,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body suppressHydrationWarning className="min-h-screen">
-        {children}
+        <AuthProvider>
+          {children}
 
-        {/* Client-side providers (Toast, etc.) */}
-        <Providers />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            newestOnTop
+            pauseOnHover
+            draggable
+            theme="colored"
+          />
+        </AuthProvider>
       </body>
     </html>
   );

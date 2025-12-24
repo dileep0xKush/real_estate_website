@@ -1,39 +1,31 @@
 import { FastifyReply } from 'fastify';
 
-const isProd = process.env.NODE_ENV === 'production';
+const baseCookieOptions = {
+  httpOnly: true,
+  path: '/',
+};
 
 export function setAuthCookies(
   reply: FastifyReply,
   accessToken: string,
   refreshToken: string,
 ): void {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   reply.setCookie('access_token', accessToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: 'strict',
-    path: '/',
-    maxAge: 15 * 60,
+    ...baseCookieOptions,
+    secure: false, // // localhost   for pro - true
+    sameSite: 'lax', // // localhost for pro -  'strict',
+    maxAge: 15 * 60, // 15 minutes
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   reply.setCookie('refresh_token', refreshToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: 'strict',
-    path: '/',
-    maxAge: 7 * 24 * 60 * 60,
+    ...baseCookieOptions,
+    secure: false, // // localhost   for pro - true
+    sameSite: 'lax', // // localhost    for pro -  'strict',
+    maxAge: 7 * 24 * 60 * 60, // 7 days
   });
 }
 
 export function clearAuthCookies(reply: FastifyReply): void {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  reply.clearCookie('access_token', {
-    path: '/',
-  });
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  reply.clearCookie('refresh_token', {
-    path: '/',
-  });
+  reply.clearCookie('access_token', { path: '/' });
+  reply.clearCookie('refresh_token', { path: '/' });
 }
