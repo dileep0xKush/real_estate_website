@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "../(site)/layouts/Header";
-import Footer from "../(site)/layouts/Footer";
+import Header from "@/app/(private)/layouts/Header";
+import Footer from "@/app/(private)/layouts/Footer";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("/auth/login");
+      router.replace("public/login");
     }
   }, [user, loading, router]);
 

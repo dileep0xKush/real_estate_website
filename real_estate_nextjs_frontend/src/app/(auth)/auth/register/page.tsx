@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { registerUser } from "@/services/auth";
 import { RegisterPayload } from "@/types/auth";
-import { TextInput } from "@/app/(site)/components/common/TextInput";
-import { PasswordInput } from "@/app/(site)/components/common/PasswordInput";
+import { TextInput } from "@/app/(private)/components/common/TextInput";
+import { PasswordInput } from "@/app/(private)/components/common/PasswordInput";
 import { showSuccess, showError } from "@/utils/toast";
 
 export default function RegisterPage() {
