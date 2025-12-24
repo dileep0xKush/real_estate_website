@@ -76,7 +76,6 @@ export class AuthController {
     @Res({ passthrough: true }) reply: ReplyWithCookies,
   ) {
     const userId = req.user.userId;
-    console.log('Logout userId:', userId);
 
     await this.auth.logout(userId);
     clearAuthCookies(reply);

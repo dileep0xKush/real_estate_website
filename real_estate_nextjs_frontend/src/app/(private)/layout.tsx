@@ -13,7 +13,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("public/login");
+      router.replace("auth/login");
     }
   }, [user, loading, router]);
 

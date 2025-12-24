@@ -14,7 +14,7 @@ export function setAuthCookies(
     ...baseCookieOptions,
     secure: false, // // localhost   for pro - true
     sameSite: 'lax', // // localhost for pro -  'strict',
-    maxAge: 15 * 60, // 15 minutes
+    maxAge: 60 * 60, // 60 minutes
   });
 
   reply.setCookie('refresh_token', refreshToken, {

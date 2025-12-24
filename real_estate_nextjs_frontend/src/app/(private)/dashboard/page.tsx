@@ -2,508 +2,182 @@
 
 import Link from "next/link";
 
-export default function DashboardPage() {
+export default function RealEstateDashboard() {
   return (
-    <>
-      {/* Page Banner */}
-      <div id="page-banner-area" className="page-banner">
-        <div className="page-banner-title">
-          <div className="text-center">
-            <h2>Dashboard</h2>
+    <div className="min-h-screen bg-gray-100">
+      {/* IMPORTANT: header height compensation */}
+      <main className="max-w-7xl mx-auto px-6 pt-[20px] pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* LEFT: Dashboard Content */}
+          <div className="lg:col-span-8 space-y-10">
+            {/* KPI Cards */}
+            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Kpi title="Total Properties" value="128" note="+8 this month" />
+              <Kpi title="Active Listings" value="92" note="71% active" />
+              <Kpi title="Property Views" value="18,420" note="+12% growth" />
+              <Kpi title="New Leads" value="36" note="Last 30 days" />
+            </section>
 
-            <Link href="/">
-              <i className="lni-home"></i> Home
-            </Link>
+            {/* Listings */}
+            <section>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  Featured Listings
+                </h2>
+                <Link
+                  href="#"
+                  className="text-sm text-indigo-600 hover:underline"
+                >
+                  View all
+                </Link>
+              </div>
 
-            <span className="crumbs-spacer">
-              <i className="lni-chevron-right"></i>
-            </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {properties.map((p, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden"
+                  >
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="h-48 w-full object-cover"
+                    />
 
-            <span className="current">Dashboard</span>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-gray-800">{p.title}</h3>
+                      <p className="text-sm text-gray-500">{p.location}</p>
+                      <p className="text-lg font-bold text-indigo-600 mt-2">
+                        {p.price}
+                      </p>
+
+                      <button className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Performance */}
+            <section className="bg-white rounded-xl shadow p-6">
+              <h3 className="font-semibold text-gray-800 mb-4">
+                Performance Overview
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <Metric label="Avg Property Price" value="$1.2M" />
+                <Metric label="Avg Days on Market" value="24 Days" />
+                <Metric label="Conversion Rate" value="4.8%" />
+              </div>
+            </section>
           </div>
-        </div>
-      </div>
 
-      {/* User Section */}
-      <section className="user-page section-padding">
-        <div className="container">
-          <div className="row">
-            {/* Sidebar Profile */}
-            <div className="col-lg-4 col-md-5 col-xs-12">
-              <div className="user-profile-box">
-                <div className="header clearfix">
-                  <h2>Justyna Michallek</h2>
-                  <h4>Real Estate Agent</h4>
-                  <img
-                    src="/assets/img/avatar/avatar-2.jpg"
-                    alt="avatar"
-                    className="img-fluid profile-img"
-                  />
-                </div>
-
-                <div className="detail clearfix">
-                  <ul>
-                    <li>
-                      <Link className="active" href="/dashboard">
-                        <i className="lni-files"></i> Dashboard
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/user-profile">
-                        <i className="lni-user"></i> Profile
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/my-properties">
-                        <i className="lni-home"></i> My Properties
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/favorites">
-                        <i className="lni-heart"></i> Favorited Properties
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/submit-property">
-                        <i className="lni-plus"></i> Submit New Property
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/change-password">
-                        <i className="lni-lock"></i> Change Password
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link href="/">
-                        <i className="lni-logout"></i> Log Out
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+          <aside className="lg:col-span-4">
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="text-center">
+                <img
+                  src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
+                  alt="Avatar"
+                  className="w-24 h-24 rounded-full mx-auto object-cover"
+                />
+                <h3 className="mt-4 text-xl font-semibold">
+                  Justyna Michallek
+                </h3>
+                <p className="text-gray-500 text-sm">Real Estate Agent</p>
               </div>
+
+              <nav className="mt-6 space-y-2">
+                {[
+                  ["Dashboard", "/dashboard"],
+                  ["Profile", "/user-profile"],
+                  ["My Properties", "/my-properties"],
+                  ["Favorites", "/favorites"],
+                  ["Submit Property", "/submit-property"],
+                  ["Change Password", "/change-password"],
+                ].map(([label, href]) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    className="block px-4 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition"
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+                <Link
+                  href="/"
+                  className="block px-4 py-2 rounded-lg text-red-500 hover:bg-red-50 transition"
+                >
+                  Log Out
+                </Link>
+              </nav>
             </div>
-
-            {/* Dashboard Content */}
-            <div className="col-lg-8 col-md-7 col-xs-12">
-              {/* Stats Boxes */}
-              <div className="dashborad-box">
-                <h4 className="title">Manage Dashboard</h4>
-
-                <div className="section-body">
-                  <div className="row">
-                    <div className="col-sm-4">
-                      <div className="item">
-                        <div className="icon">
-                          <span className="lni-map-marker"></span>
-                        </div>
-                        <div className="info">
-                          <h6 className="number">12</h6>
-                          <p className="type">Listing</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-sm-4">
-                      <div className="item">
-                        <div className="icon">
-                          <span className="lni-thumbs-up"></span>
-                        </div>
-                        <div className="info">
-                          <h6 className="number">30</h6>
-                          <p className="type">Review</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-sm-4">
-                      <div className="item">
-                        <div className="icon">
-                          <span className="lni-comments"></span>
-                        </div>
-                        <div className="info">
-                          <h6 className="number">18</h6>
-                          <p className="type">Messages</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Listing Table */}
-              <div className="dashborad-box">
-                <h4 className="title">Listing</h4>
-
-                <div className="section-body listing-table">
-                  <div className="table-responsive">
-                    <table className="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Listing Name</th>
-                          <th>Date</th>
-                          <th>Rating</th>
-                          <th>Status</th>
-                          <th>Edit</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        <tr>
-                          <td>Amazing oceanfront apartment</td>
-                          <td>17 May 2018</td>
-                          <td className="rating">
-                            <span>4.3</span>
-                          </td>
-                          <td className="status">
-                            <span className="active">Active</span>
-                          </td>
-                          <td className="edit">
-                            <Link href="#">
-                              <span className="lni-pencil"></span>
-                            </Link>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>Red Blue Restaurant</td>
-                          <td>17 May 2018</td>
-                          <td className="rating">
-                            <span>4.3</span>
-                          </td>
-                          <td className="status">
-                            <span className="active">Active</span>
-                          </td>
-                          <td className="edit">
-                            <Link href="#">
-                              <span className="lni-pencil"></span>
-                            </Link>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>Amazing oceanfront apartment</td>
-                          <td>12 June 2018</td>
-                          <td className="rating">
-                            <span>4.3</span>
-                          </td>
-                          <td className="status">
-                            <span className="non-active">Non-Active</span>
-                          </td>
-                          <td className="edit">
-                            <Link href="#">
-                              <span className="lni-pencil"></span>
-                            </Link>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>Luxury home for sale</td>
-                          <td>31 Aug 2018</td>
-                          <td className="rating">
-                            <span>4.3</span>
-                          </td>
-                          <td className="status">
-                            <span className="active">Active</span>
-                          </td>
-                          <td className="edit">
-                            <Link href="#">
-                              <span className="lni-pencil"></span>
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              {/* Messages */}
-              <div className="dashborad-box">
-                <h4 className="title">Message</h4>
-
-                <div className="section-body">
-                  <div className="messages">
-                    <div className="message">
-                      <div className="thumb">
-                        <img
-                          src="/assets/img/dashboard/thumb-1.jpg"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-
-                      <div className="body">
-                        <h6>
-                          David Givens <span className="badge">Unread</span>
-                        </h6>
-                        <p className="post-time">3 Minutes ago</p>
-                        <p className="content">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit.
-                        </p>
-
-                        <div className="controller">
-                          <ul>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-eye"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-trash"></i>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="message">
-                      <div className="thumb">
-                        <img
-                          src="/assets/img/dashboard/thumb-2.jpg"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-                      <div className="body">
-                        <h6>Darrell S. Allen</h6>
-                        <p className="post-time">19 Minutes ago</p>
-                        <p className="content">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit.
-                        </p>
-
-                        <div className="controller">
-                          <ul>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-eye"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-trash"></i>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Reviews */}
-              <div className="dashborad-box">
-                <h4 className="title">Review</h4>
-
-                <div className="section-body">
-                  <div className="reviews">
-                    <div className="review">
-                      <div className="thumb">
-                        <img
-                          src="/assets/img/dashboard/thumb-1.jpg"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-
-                      <div className="body">
-                        <h6>
-                          John Doe
-                          <span className="stars">
-                            <i className="lni-star-filled"></i>
-                            <i className="lni-star-filled"></i>
-                            <i className="lni-star-filled"></i>
-                            <i className="lni-star"></i>
-                            <i className="lni-star"></i>
-                          </span>
-                        </h6>
-
-                        <p className="post-time">5 hours ago</p>
-                        <p className="content">Lorem ipsum dolor sit amet.</p>
-
-                        <div className="controller">
-                          <ul>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-check-box"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-pencil-alt"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-reply"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-trash"></i>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="review">
-                      <div className="thumb">
-                        <img
-                          src="/assets/img/dashboard/thumb-2.jpg"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-
-                      <div className="body">
-                        <h6>
-                          Charli Maria
-                          <span className="stars">
-                            <i className="lni-star-filled"></i>
-                            <i className="lni-star-filled"></i>
-                            <i className="lni-star"></i>
-                            <i className="lni-star"></i>
-                          </span>
-                        </h6>
-
-                        <p className="post-time">39 Minutes ago</p>
-                        <p className="content">Lorem ipsum dolor sit amet.</p>
-
-                        <div className="controller">
-                          <ul>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-check-box"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-pencil-alt"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-reply"></i>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#">
-                                <i className="lni-trash"></i>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Personal Information Form */}
-              <div className="dashborad-box">
-                <h3 className="heading">Personal Information</h3>
-
-                <div className="section-inforamation">
-                  <form>
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <label>First Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter your First name"
-                        />
-                      </div>
-
-                      <div className="col-sm-6">
-                        <label>Last Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter your Last name"
-                        />
-                      </div>
-
-                      <div className="col-sm-6">
-                        <label>Email Address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Ex: example@domain.com"
-                        />
-                      </div>
-
-                      <div className="col-sm-6">
-                        <label>Phone Number</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Ex: +1-0000-0000-00"
-                        />
-                      </div>
-
-                      <div className="col-lg-12">
-                        <label>Address</label>
-                        <textarea
-                          className="form-control"
-                          placeholder="Write your address here"
-                        ></textarea>
-                      </div>
-
-                      <div className="col-lg-12">
-                        <label>About Yourself</label>
-                        <textarea
-                          className="form-control"
-                          placeholder="Write about yourself"
-                        ></textarea>
-                      </div>
-                    </div>
-
-                    {/* Password Update */}
-                    <div className="password-section">
-                      <h6>Update Password</h6>
-
-                      <div className="row">
-                        <div className="col-sm-6">
-                          <label>New Password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Write new password"
-                          />
-                        </div>
-
-                        <div className="col-sm-6">
-                          <label>Repeat Password</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Write same password again"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button className="btn btn-common mt-3">Submit</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          </aside>
         </div>
-      </section>
-    </>
+      </main>
+    </div>
   );
 }
+
+/* ===== Components ===== */
+
+function Kpi({
+  title,
+  value,
+  note,
+}: {
+  title: string;
+  value: string;
+  note: string;
+}) {
+  return (
+    <div className="bg-white rounded-xl shadow p-6">
+      <p className="text-sm text-gray-500">{title}</p>
+      <h3 className="text-2xl font-bold text-gray-800 mt-1">{value}</h3>
+      <p className="text-xs text-green-600 mt-1">{note}</p>
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border rounded-lg p-4">
+      <p className="text-sm text-gray-500">{label}</p>
+      <h4 className="text-xl font-semibold text-gray-800 mt-1">{value}</h4>
+    </div>
+  );
+}
+
+function SidebarLink({ label, danger }: { label: string; danger?: boolean }) {
+  return (
+    <Link
+      href="#"
+      className={`block px-4 py-2 rounded-lg text-sm transition ${
+        danger
+          ? "text-red-500 hover:bg-red-50"
+          : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
+
+/* ===== Data ===== */
+
+const properties = [
+  {
+    title: "Luxury Beachfront Villa",
+    location: "Miami, FL",
+    price: "$2,400,000",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+  },
+  {
+    title: "Modern City Apartment",
+    location: "New York, NY",
+    price: "$980,000",
+    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+  },
+];
