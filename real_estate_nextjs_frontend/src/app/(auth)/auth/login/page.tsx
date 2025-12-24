@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { FiUser, FiLock } from "react-icons/fi";
 import { loginUser } from "@/services/auth";
 import { showSuccess, showError } from "@/utils/toast";
+import { useAuth } from "@/context/AuthProvider"; // 🔥 IMPORTANT
 
 export default function LoginPage() {
   const router = useRouter();
+  const { refreshUser } = useAuth(); // 🔥 signal provider
 
   const [form, setForm] = useState({
     email: "",
@@ -26,12 +28,17 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
+
       const res = await loginUser(form);
 
       if (res.status === "success") {
         showSuccess("Login successful");
-        localStorage.setItem("accessToken", res.data.accessToken);
-        setTimeout(() => router.push("/dashboard"), 1200);
+
+        // 🔥 VERY IMPORTANT: update auth state
+        await refreshUser();
+
+        // 🔥 now redirect
+        router.replace("/dashboard");
       } else {
         showError("Invalid email or password");
       }

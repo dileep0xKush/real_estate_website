@@ -17,9 +17,9 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     }
   }, [user, loading, router]);
 
-  if (loading) return null;
-
-  if (!user) return null;
+  if (loading || !user) {
+    return null;
+  }
 
   return (
     <>

@@ -18,7 +18,9 @@ export default function AuthLayout({
     }
   }, [user, loading, router]);
 
-  if (loading) return null;
+  if (loading || user) {
+    return null;
+  }
 
   return <>{children}</>;
 }
